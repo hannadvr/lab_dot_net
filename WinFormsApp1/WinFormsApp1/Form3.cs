@@ -17,8 +17,8 @@ namespace WinFormsApp1
 
         private void button2_Click(object sender, EventArgs e)
         {
-            Form? form = Application.OpenForms[0];
-            form?.Show();
+            Form form = Application.OpenForms[0];
+            form.Show();
             this.Close();
         }
 
@@ -52,6 +52,8 @@ namespace WinFormsApp1
                 }
 
                 label4.Text = twoDimArray.FindMultiplesOfFive();
+                label5.Text = twoDimArray.SumMain().ToString();
+
             }
             catch (Exception ex)
             {

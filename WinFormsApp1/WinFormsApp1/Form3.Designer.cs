@@ -37,6 +37,7 @@
             label3 = new Label();
             label4 = new Label();
             button2 = new Button();
+            label5 = new Label();
             ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
             SuspendLayout();
             // 
@@ -119,11 +120,21 @@
             button2.UseVisualStyleBackColor = true;
             button2.Click += button2_Click;
             // 
+            // label5
+            // 
+            label5.AutoSize = true;
+            label5.Location = new Point(558, 144);
+            label5.Name = "label5";
+            label5.Size = new Size(106, 15);
+            label5.TabIndex = 9;
+            label5.Text = "Сума по діагоналі";
+            // 
             // Form3
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(731, 331);
+            Controls.Add(label5);
             Controls.Add(button2);
             Controls.Add(label4);
             Controls.Add(label3);
@@ -151,5 +162,6 @@
         private Label label3;
         private Label label4;
         private Button button2;
+        private Label label5;
     }
 }

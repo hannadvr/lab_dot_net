@@ -43,5 +43,12 @@ namespace WinFormsApp1
             f.Show();
             this.Hide();
         }
+
+        private void unitTestToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Form4 f = new Form4();
+            f.Show();
+            this.Hide();
+        }
     }
 }

@@ -49,6 +49,7 @@
             роботаЗМасивамиToolStripMenuItem = new ToolStripMenuItem();
             одновимірніМасивиToolStripMenuItem = new ToolStripMenuItem();
             двовимірніМасивиToolStripMenuItem = new ToolStripMenuItem();
+            unitTestToolStripMenuItem = new ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
             ((System.ComponentModel.ISupportInitialize)chart1).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
@@ -179,7 +180,7 @@
             // 
             // menuStrip1
             // 
-            menuStrip1.Items.AddRange(new ToolStripItem[] { роботаЗМасивамиToolStripMenuItem });
+            menuStrip1.Items.AddRange(new ToolStripItem[] { роботаЗМасивамиToolStripMenuItem, unitTestToolStripMenuItem });
             menuStrip1.Location = new Point(0, 0);
             menuStrip1.Name = "menuStrip1";
             menuStrip1.Size = new Size(899, 24);
@@ -206,6 +207,13 @@
             двовимірніМасивиToolStripMenuItem.Size = new Size(189, 22);
             двовимірніМасивиToolStripMenuItem.Text = "Двовимірні масиви";
             двовимірніМасивиToolStripMenuItem.Click += двовимірніМасивиToolStripMenuItem_Click;
+            // 
+            // unitTestToolStripMenuItem
+            // 
+            unitTestToolStripMenuItem.Name = "unitTestToolStripMenuItem";
+            unitTestToolStripMenuItem.Size = new Size(65, 20);
+            unitTestToolStripMenuItem.Text = "Unit Test";
+            unitTestToolStripMenuItem.Click += unitTestToolStripMenuItem_Click;
             // 
             // Form1
             // 
@@ -257,5 +265,6 @@
         private ToolStripMenuItem роботаЗМасивамиToolStripMenuItem;
         private ToolStripMenuItem одновимірніМасивиToolStripMenuItem;
         private ToolStripMenuItem двовимірніМасивиToolStripMenuItem;
+        private ToolStripMenuItem unitTestToolStripMenuItem;
     }
 }

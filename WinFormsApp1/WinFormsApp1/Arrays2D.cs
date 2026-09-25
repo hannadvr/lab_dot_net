@@ -8,8 +8,8 @@ namespace WinFormsApp1
     {
         public bool error = false; // поле помилки
         int[,] a;                 // двовимірний масив
-        int x_length = 5;      
-        int y_length = 3;        
+        int x_length = 5;
+        int y_length = 3;
 
         public int X_length
         {
@@ -95,5 +95,21 @@ namespace WinFormsApp1
 
             return string.Join("\n", results);
         }
+        public int SumMain()
+        {
+            int sum = 0;
+            for (int i = 0; i < x_length; i++)
+            {
+                for (int j = 0; j < y_length; j++)
+                {
+                    if (i == j)
+                    {
+                        sum += a[i, j]
+                        ;
+                    }
+                }
+            }
+            return sum;
+        }
     }
-}
+    }
