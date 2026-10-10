@@ -66,5 +66,16 @@ namespace UnitTest
 
             Assert.AreEqual(testRes, res);
         }
+
+        [TestMethod]
+        public void Calculation_test()
+        {
+            var calc = new Calculation_abc(3, 3, 6);
+            var testRes = 4;
+
+            var res = calc.D();
+
+            Assert.AreEqual(testRes, res);
+        }
     }
 }

@@ -40,6 +40,8 @@ namespace WinFormsApp1.lab2
         {
             if (a % 2 == 0 && b % 2 == 0 && c % 2 == 0)
                 return a * b * c;
+            else if (a % 2 == 1 || b % 2 == 1 || c % 2 == 1)
+                return (a + b + c) / 3;
             else
                 return (a + b + c) * (a + b + c);
         }
