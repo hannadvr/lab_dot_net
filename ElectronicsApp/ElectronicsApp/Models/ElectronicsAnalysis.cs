@@ -15,5 +15,5 @@ namespace ElectronicsApp.Models
             }
             return total;
         }
-    }
+        }
 }

@@ -31,5 +31,22 @@ namespace ElectronicsTests
 
             Assert.AreEqual(0, total);
         }
+
+        [TestMethod]
+        public void PolymorphicInterfaceCollection_Demonstration()
+        {
+            var networkDevices = new List<IConnectable>
+            {
+                new Phone("Apple", 20000, 2024, 8),
+                new Tablet("iPad", 25000, 2024, true)
+                };
+
+            foreach (var device in networkDevices)
+            {
+                string result = device.ConnectToWifi("Main_Network");
+                Assert.IsTrue(device.IsConnected);
+                StringAssert.Contains(result, "Main_Network");
+            }
+        }
     }
 }

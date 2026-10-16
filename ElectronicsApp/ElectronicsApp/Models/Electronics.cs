@@ -4,9 +4,9 @@ namespace ElectronicsApp.Models
 {
     public abstract class Electronics
     {
-        public string Brand;
-        public double Price;
-        public int Year;
+        public string Brand { get; private set; }
+        public double Price { get; private set; }
+        public int Year { get; private set; }
 
         public Electronics(string brand, double price, int year)
         {

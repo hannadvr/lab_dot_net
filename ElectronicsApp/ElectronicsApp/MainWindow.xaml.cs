@@ -25,28 +25,36 @@ namespace ElectronicsApp
 
         private void SetInitialUiState()
         {
-            if (DeviceTypeComboBox == null || PhoneFields == null || LaptopFields == null)
-                return;
+            if (DeviceTypeComboBox == null) return;
 
-            if (DeviceTypeComboBox.SelectedIndex == 0) // Телефон
+            // Ховаємо всі специфічні поля за замовчуванням
+            if (PhoneFields != null) PhoneFields.Visibility = Visibility.Collapsed;
+            if (RamMemoryTextBox != null) RamMemoryTextBox.Visibility = Visibility.Collapsed;
+
+            if (LaptopFields != null) LaptopFields.Visibility = Visibility.Collapsed;
+            if (ScreenSizeTextBox != null) ScreenSizeTextBox.Visibility = Visibility.Collapsed;
+
+            if (TabletFields != null) TabletFields.Visibility = Visibility.Collapsed;
+            if (HasStylusTextBox != null) HasStylusTextBox.Visibility = Visibility.Collapsed;
+
+            // Показуємо потрібні поля для обраного пристрою
+            switch (DeviceTypeComboBox.SelectedIndex)
             {
-                PhoneFields.Visibility = Visibility.Visible;
-                RamMemoryTextBox.Visibility = Visibility.Visible;
-
-                LaptopFields.Visibility = Visibility.Collapsed;
-                ScreenSizeTextBox.Visibility = Visibility.Collapsed;
-            }
-            else // Ноутбук
-            {
-                PhoneFields.Visibility = Visibility.Collapsed;
-                RamMemoryTextBox.Visibility = Visibility.Collapsed;
-
-                LaptopFields.Visibility = Visibility.Visible;
-                ScreenSizeTextBox.Visibility = Visibility.Visible;
+                case 0: // Телефон
+                    PhoneFields.Visibility = Visibility.Visible;
+                    RamMemoryTextBox.Visibility = Visibility.Visible;
+                    break;
+                case 1: // Ноутбук
+                    LaptopFields.Visibility = Visibility.Visible;
+                    ScreenSizeTextBox.Visibility = Visibility.Visible;
+                    break;
+                case 2: // Планшет
+                    TabletFields.Visibility = Visibility.Visible;
+                    HasStylusTextBox.Visibility = Visibility.Visible;
+                    break;
             }
         }
 
-        /// Обробка натискання кнопки "Додати техніку".
         private void AddDeviceButton_Click(object sender, RoutedEventArgs e)
         {
             try
@@ -71,7 +79,7 @@ namespace ElectronicsApp
                 Electronics device;
 
                 // Створення об'єкта залежно від обраного типу
-                if (DeviceTypeComboBox.SelectedIndex == 0)
+                if (DeviceTypeComboBox.SelectedIndex == 0) // Телефон
                 {
                     if (!int.TryParse(RamMemoryTextBox.Text, out int ram))
                     {
@@ -81,7 +89,7 @@ namespace ElectronicsApp
 
                     device = new Phone(brand, price, year, ram);
                 }
-                else
+                else if (DeviceTypeComboBox.SelectedIndex == 1) // Ноутбук
                 {
                     if (!double.TryParse(ScreenSizeTextBox.Text.Replace(',', '.'),
                         System.Globalization.NumberStyles.Any,
@@ -93,9 +101,22 @@ namespace ElectronicsApp
 
                     device = new Laptop(brand, price, year, screen);
                 }
+                else // Планшет
+                {
+                    string stylusInput = HasStylusTextBox.Text.Trim();
+                    bool hasStylus = stylusInput == "1" || stylusInput.Equals("так", StringComparison.OrdinalIgnoreCase);
+
+                    device = new Tablet(brand, price, year, hasStylus);
+                }
 
                 // Додаємо техніку до загального списку
                 _electronics.Add(device);
+
+                // Якщо пристрій підтримує підключення до мережі - підключаємо його
+                if (device is IConnectable connectableDevice)
+                {
+                    connectableDevice.ConnectToWifi("University_WiFi");
+                }
 
                 string description = device.GetDescription();
                 ElectronicsListBox.Items.Add(description);
@@ -109,6 +130,7 @@ namespace ElectronicsApp
                 YearTextBox.Clear();
                 RamMemoryTextBox.Clear();
                 ScreenSizeTextBox.Clear();
+                HasStylusTextBox.Clear();
             }
             catch (ArgumentException ex)
             {
@@ -127,10 +149,8 @@ namespace ElectronicsApp
             }
         }
 
-        /// Оновлює інформацію про загальні розрахунки на екрані.
         private void UpdateAnalytics()
         {
-            // Викликаємо статичний метод аналізу
             double totalDepreciation = ElectronicsAnalysis.GetTotalDepreciation(_electronics);
 
             // Оновлюємо текст у нижньому блоці

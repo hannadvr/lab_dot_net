@@ -79,5 +79,16 @@ namespace ElectronicsTests
             StringAssert.Contains(description, "Рік: 2024");
             StringAssert.Contains(description, "ОЗП: 8 ГБ");
         }
+
+        // Перевірка методу підключення
+        [TestMethod]
+        public void ConnectToWifi_ValidNetwork_ConnectsSuccessfully()
+        {
+            IConnectable phone = new Phone("Apple", 15000, 2024, 8);
+            string result = phone.ConnectToWifi("Office_Wi-Fi");
+
+            Assert.IsTrue(phone.IsConnected);
+            StringAssert.Contains(result, "Office_Wi-Fi");
+        }
     }
 }

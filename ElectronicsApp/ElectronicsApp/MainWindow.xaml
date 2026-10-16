@@ -5,7 +5,9 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ElectronicsApp"
         mc:Ignorable="d"
-        Title="Облік електроніки" Height="480" Width="820" Foreground="#FF252D35" Background="#FFD8FDBE" FontFamily="Cascadia Code">
+        Title="Облік електроніки" Height="620" Width="850" MinHeight="500" MinWidth="700"
+        Foreground="#FF252D35" Background="#FFD8FDBE" FontFamily="Cascadia Code">
+
     <Window.Resources>
         <Style TargetType="Button">
             <Setter Property="Background" Value="#4CAF50"/>
@@ -19,64 +21,70 @@
         </Style>
 
         <Style TargetType="TextBox">
-            <Setter Property="Padding" Value="3"/>
+            <Setter Property="Padding" Value="4"/>
             <Setter Property="Margin" Value="0,3,0,3"/>
             <Setter Property="BorderBrush" Value="#CCCCCC"/>
             <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="VerticalContentAlignment" Value="Center"/>
         </Style>
 
         <Style TargetType="Label">
-            <Setter Property="Margin" Value="0,5,0,0"/>
+            <Setter Property="Margin" Value="0,3,0,3"/>
             <Setter Property="FontWeight" Value="SemiBold"/>
+            <Setter Property="VerticalContentAlignment" Value="Center"/>
         </Style>
 
         <Style TargetType="GroupBox">
             <Setter Property="Margin" Value="5"/>
-            <Setter Property="Padding" Value="5"/>
-            <Setter Property="BorderBrush" Value="#E0E0E0"/>
+            <Setter Property="Padding" Value="8"/>
+            <Setter Property="BorderBrush" Value="#A5D6A7"/>
             <Setter Property="BorderThickness" Value="1"/>
             <Setter Property="FontWeight" Value="Bold"/>
         </Style>
 
         <Style TargetType="ComboBox">
             <Setter Property="Margin" Value="0,5,0,0"/>
+            <Setter Property="Padding" Value="4"/>
         </Style>
 
         <Style TargetType="ListBox">
             <Setter Property="Margin" Value="5"/>
-            <Setter Property="BorderBrush" Value="#E0E0E0"/>
+            <Setter Property="BorderBrush" Value="#A5D6A7"/>
             <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="FontSize" Value="13"/>
         </Style>
     </Window.Resources>
 
-    <Grid Margin="10">
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="670*"/>
-            <ColumnDefinition Width="111*"/>
-        </Grid.ColumnDefinitions>
+    <Grid Margin="12">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
+            <!-- Форма введення -->
             <RowDefinition Height="*"/>
+            <!-- Список техніки (розширюється) -->
             <RowDefinition Height="Auto"/>
+            <!-- Аналітика -->
         </Grid.RowDefinitions>
 
         <!-- Верхній блок: Введення даних -->
-        <GroupBox Header="Нова техніка" Grid.Row="0" Margin="5,5,5,5" Grid.ColumnSpan="2">
-            <StackPanel Orientation="Vertical" Margin="10">
+        <GroupBox Header="Нова техніка" Grid.Row="0">
+            <StackPanel Orientation="Vertical" Margin="5">
                 <Label Content="Тип техніки:"/>
-                <ComboBox x:Name="DeviceTypeComboBox" Width="200" HorizontalAlignment="Left" SelectionChanged="DeviceTypeComboBox_SelectionChanged">
+                <ComboBox x:Name="DeviceTypeComboBox" Width="220" HorizontalAlignment="Left" SelectionChanged="DeviceTypeComboBox_SelectionChanged">
                     <ComboBoxItem Content="Телефон"/>
                     <ComboBoxItem Content="Ноутбук"/>
+                    <ComboBoxItem Content="Планшет"/>
                 </ComboBox>
 
                 <Grid Margin="0,10,0,0">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="Auto"/>
+                        <!-- Підписи -->
                         <ColumnDefinition Width="*"/>
+                        <!-- Поля введення -->
                     </Grid.ColumnDefinitions>
 
                     <!-- Підписи полів зліва -->
-                    <StackPanel Grid.Column="0">
+                    <StackPanel Grid.Column="0" Margin="0,0,15,0">
                         <Label Content="Бренд:"/>
                         <Label Content="Ціна:"/>
                         <Label Content="Рік випуску:"/>
@@ -90,33 +98,54 @@
                         <StackPanel x:Name="LaptopFields" Visibility="Collapsed">
                             <Label Content="Розмір екрану (дюйми):"/>
                         </StackPanel>
+
+                        <!-- Специфічний підпис для Планшета -->
+                        <StackPanel x:Name="TabletFields" Visibility="Collapsed">
+                            <Label Content="Наявність стилуса (1 - так, 0 - ні):"/>
+                        </StackPanel>
                     </StackPanel>
 
                     <!-- Текстові поля справа -->
                     <StackPanel Grid.Column="1">
-                        <TextBox x:Name="BrandTextBox" Margin="0,3,0,3"/>
-                        <TextBox x:Name="PriceTextBox" Margin="0,3,0,3"/>
-                        <TextBox x:Name="YearTextBox" Margin="0,3,0,3"/>
-                        <TextBox x:Name="RamMemoryTextBox" Margin="0,3,0,3"/>
-                        <TextBox x:Name="ScreenSizeTextBox" Margin="0,3,0,3" Visibility="Collapsed"/>
+                        <TextBox x:Name="BrandTextBox"/>
+                        <TextBox x:Name="PriceTextBox"/>
+                        <TextBox x:Name="YearTextBox"/>
+                        <TextBox x:Name="RamMemoryTextBox"/>
+                        <TextBox x:Name="ScreenSizeTextBox" Visibility="Collapsed"/>
+                        <!-- Додано поле вводу для планшета -->
+                        <TextBox x:Name="HasStylusTextBox" Visibility="Collapsed"/>
                     </StackPanel>
                 </Grid>
 
-                <Button x:Name="AddDeviceButton" Content="Додати техніку" Margin="0,15,0,0" HorizontalAlignment="Left" Padding="10,5" Click="AddDeviceButton_Click"/>
+                <Button x:Name="AddDeviceButton" Content="Додати техніку" Click="AddDeviceButton_Click"/>
             </StackPanel>
         </GroupBox>
 
-        <!-- Середній блок: Список техніки -->
-        <ListBox x:Name="ElectronicsListBox" Grid.Row="1" Grid.ColumnSpan="2" Margin="5"/>
+        <!-- Середній блок: Розширений список опису техніки -->
+        <GroupBox Header="Список доданої техніки" Grid.Row="1">
+            <ListBox x:Name="ElectronicsListBox" 
+                     ScrollViewer.VerticalScrollBarVisibility="Auto"
+                     ScrollViewer.HorizontalScrollBarVisibility="Auto">
+                <ListBox.ItemContainerStyle>
+                    <Style TargetType="ListBoxItem">
+                        <Setter Property="Padding" Value="8"/>
+                        <Setter Property="Margin" Value="2"/>
+                        <Setter Property="Background" Value="#F9FFF5"/>
+                        <Setter Property="BorderBrush" Value="#E0E0E0"/>
+                        <Setter Property="BorderThickness" Value="1"/>
+                    </Style>
+                </ListBox.ItemContainerStyle>
+            </ListBox>
+        </GroupBox>
 
         <!-- Нижній блок: Загальний розрахунок та аналітика -->
-        <GroupBox Header="Аналітика" Grid.Row="2" Margin="5,5,5,5" Grid.ColumnSpan="2">
+        <GroupBox Header="Аналітика" Grid.Row="2">
             <StackPanel Orientation="Horizontal" Margin="5" HorizontalAlignment="Center">
-                <TextBlock Text="Загальна амортизація: " FontWeight="Bold"/>
-                <TextBlock x:Name="TotalDepreciationTextBlock" Text="0.00 грн"/>
-                <TextBlock Text="  |  "/>
-                <TextBlock Text="Кількість техніки: " FontWeight="Bold"/>
-                <TextBlock x:Name="TotalCountTextBlock" Text="0"/>
+                <TextBlock Text="Загальна амортизація: " FontWeight="Bold" FontSize="14"/>
+                <TextBlock x:Name="TotalDepreciationTextBlock" Text="0.00 грн" FontSize="14"/>
+                <TextBlock Text="   |   " FontSize="14"/>
+                <TextBlock Text="Кількість техніки: " FontWeight="Bold" FontSize="14"/>
+                <TextBlock x:Name="TotalCountTextBlock" Text="0" FontSize="14"/>
             </StackPanel>
         </GroupBox>
     </Grid>

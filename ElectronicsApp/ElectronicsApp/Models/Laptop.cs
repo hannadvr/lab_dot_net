@@ -3,9 +3,9 @@ using System.Text;
 
 namespace ElectronicsApp.Models
 {
-    public class Laptop : Electronics
+    public class Laptop : Electronics, IPerformanceEvaluated
     {
-        public double ScreenSize;
+        public double ScreenSize { get; private set; }
 
         public Laptop(string brand, double price, int year, double screenSize)
             : base(brand, price, year)
@@ -18,6 +18,7 @@ namespace ElectronicsApp.Models
             this.ScreenSize = screenSize;
         }
 
+        // Цей метод автоматично реалізує інтерфейс IPerformanceEvaluated
         public virtual int GetBenchmarkScore()
         {
             return (int)(Price / 10) + (Year * 2);
@@ -29,8 +30,6 @@ namespace ElectronicsApp.Models
             if (age <= 0) return 0;
 
             double depreciation = Price * 0.15 * age;
-
-            // Максимальна амортизація для ноутбука не більше 85% від вартості
             double maxDepreciation = Price * 0.85;
             if (depreciation > maxDepreciation)
             {

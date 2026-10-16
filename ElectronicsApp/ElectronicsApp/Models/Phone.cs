@@ -3,9 +3,10 @@ using System.Text;
 
 namespace ElectronicsApp.Models
 {
-    public class Phone : Electronics
+    public class Phone : Electronics, IBatteryOperated, IConnectable
     {
-        public int RamMemory;
+        public int RamMemory { get; private set; }
+        public bool IsConnected { get; private set; }
 
         public Phone(string brand, double price, int year, int ramMemory)
             : base(brand, price, year)
@@ -16,8 +17,17 @@ namespace ElectronicsApp.Models
             }
 
             this.RamMemory = ramMemory;
+            this.IsConnected = false;
         }
 
+        // Реалізація інтерфейсу IConnectable
+        public string ConnectToWifi(string networkName)
+        {
+            IsConnected = true;
+            return $"Телефон {Brand} підключено до {networkName}";
+        }
+
+        // Реалізація інтерфейсу IBatteryOperated
         public virtual double CalculateBatteryLife()
         {
             return 10.0 + (RamMemory * 0.5);
@@ -29,8 +39,6 @@ namespace ElectronicsApp.Models
             if (age <= 0) return 0;
 
             double depreciation = Price * 0.20 * age;
-
-            // Максимальна амортизація не перевищує 90% від початкової вартості
             double maxDepreciation = Price * 0.90;
             if (depreciation > maxDepreciation)
             {
@@ -46,6 +54,7 @@ namespace ElectronicsApp.Models
             protocol.AppendLine($"Телефон {Brand}");
             protocol.AppendLine($"Рік: {Year}");
             protocol.AppendLine($"ОЗП: {RamMemory} ГБ");
+            protocol.AppendLine($"Wi-Fi: {(IsConnected ? "Підключено" : "Не підключено")}");
             protocol.AppendLine($"Робота батареї: {CalculateBatteryLife()} год.");
             protocol.AppendLine($"Ціна: {Price:C}");
             return protocol.ToString();
