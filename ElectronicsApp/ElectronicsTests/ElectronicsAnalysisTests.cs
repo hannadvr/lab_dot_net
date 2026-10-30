@@ -48,5 +48,18 @@ namespace ElectronicsTests
                 StringAssert.Contains(result, "Main_Network");
             }
         }
+        [TestMethod]
+        public void GetSerTest()
+        {
+            var list = new List<Electronics>
+    {
+        new Phone("Apple", 10000, 2026, 8),
+        new Laptop("Asus", 20000, 2025, 15.6)
+    };
+
+            double actualAverage = ElectronicsAnalysis.GetSer(list);
+
+            Assert.AreEqual(15000, actualAverage);
+        }
     }
 }
