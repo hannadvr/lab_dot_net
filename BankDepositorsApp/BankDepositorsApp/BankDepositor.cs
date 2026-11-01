@@ -67,6 +67,7 @@ namespace BankDepositorsApp
 
         public BankDepositor() { }
 
+        // Конструктор
         public BankDepositor(string fullName, string accountNumber, decimal amount, int openingYear)
         {
             FullName = fullName;
@@ -75,12 +76,14 @@ namespace BankDepositorsApp
             OpeningYear = openingYear;
         }
 
+        // Порівняння
         public int CompareTo(BankDepositor other)
         {
             if (other == null) return 1;
             return string.Compare(this.AccountNumber, other.AccountNumber, StringComparison.OrdinalIgnoreCase);
         }
 
+        // Перетворення в текстовий рядок
         public override string ToString()
         {
             return $"ПІБ: {FullName}, Рахунок: {AccountNumber}, Сума: {Amount:N2} грн, Рік: {OpeningYear}";

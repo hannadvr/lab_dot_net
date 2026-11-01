@@ -14,6 +14,7 @@ namespace BankDepositorsApp
         public ObservableCollection<BankDepositor> Depositors { get; }
         private List<BankDepositor> _allDepositors;
 
+        // Конструктор
         public BankManager(IFileSaver fileSaver, IFileLoader fileLoader, string filePath)
         {
             _fileSaver = fileSaver;
@@ -24,7 +25,7 @@ namespace BankDepositorsApp
             _allDepositors = new List<BankDepositor>();
         }
 
-        // Додавання елемента з ручною перевіркою дубліката без LINQ (Any)
+        // Додавання вкладника
         public void AddDepositor(BankDepositor depositor)
         {
             if (depositor == null)
@@ -42,6 +43,7 @@ namespace BankDepositorsApp
             _allDepositors.Add(depositor);
         }
 
+        // Видалення вкладника
         public void DeleteDepositor(BankDepositor depositor)
         {
             if (depositor == null) return;
@@ -49,7 +51,7 @@ namespace BankDepositorsApp
             _allDepositors.Remove(depositor);
         }
 
-        // Сортування через стандартний метод List<T>.Sort із компарером (без LINQ OrderBy)
+        // Сортування за сумою
         public void SortByAmount()
         {
             var sorted = new List<BankDepositor>(Depositors);
@@ -57,7 +59,7 @@ namespace BankDepositorsApp
             UpdateVisibleCollection(sorted);
         }
 
-        // Фільтрація через звичайний цикл foreach (без LINQ Where)
+        // Фільтрація за роком
         public void FilterByCurrentYear()
         {
             int currentYear = DateTime.Now.Year;
@@ -74,11 +76,13 @@ namespace BankDepositorsApp
             UpdateVisibleCollection(filtered);
         }
 
+        // Скидання фільтру
         public void ResetFilter()
         {
             UpdateVisibleCollection(_allDepositors);
         }
 
+        // Оновлення видимого списку
         private void UpdateVisibleCollection(List<BankDepositor> newList)
         {
             Depositors.Clear();
@@ -88,11 +92,13 @@ namespace BankDepositorsApp
             }
         }
 
+        // Зберігання в файл
         public async Task SaveAsync()
         {
             await _fileSaver.SaveAsync(_filePath, _allDepositors);
         }
 
+        // Завантаження з файлу
         public async Task LoadAsync()
         {
             var loaded = await _fileLoader.LoadAsync<BankDepositor>(_filePath);

@@ -4,6 +4,7 @@ namespace BankDepositorsApp
 {
     public class DepositorAmountComparer : IComparer<BankDepositor>
     {
+        // Порівняння вкладу
         public int Compare(BankDepositor x, BankDepositor y)
         {
             if (x == null && y == null) return 0;

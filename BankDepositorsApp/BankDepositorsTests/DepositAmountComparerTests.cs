@@ -9,6 +9,7 @@ namespace BankDepositorsTests
         private const string Iban1 = "UA111111111111111111111111111";
         private const string Iban2 = "UA222222222222222222222222222";
 
+        // Порівняння при різних вкладах
         [TestMethod]
         public void Compare_WhenAmountsAreDifferent_ReturnsCorrectOrder()
         {
@@ -20,6 +21,7 @@ namespace BankDepositorsTests
             Assert.IsTrue(comparer.Compare(d2, d1) > 0);
         }
 
+        // Порівняння при однакових вкладах
         [TestMethod]
         public void Compare_WhenAmountsAreIdentical_ReturnsZero()
         {
@@ -30,6 +32,7 @@ namespace BankDepositorsTests
             Assert.AreEqual(0, comparer.Compare(d1, d2));
         }
 
+        // Порівняння коли один з вкладів нуль
         [TestMethod]
         public void Compare_WhenFirstDepositorIsNull_ReturnsNegative()
         {
@@ -39,6 +42,7 @@ namespace BankDepositorsTests
             Assert.IsTrue(comparer.Compare(null, d) < 0);
         }
 
+        //Порівняння коли обидва вклади нуль
         [TestMethod]
         public void Compare_WhenBothAreNull_ReturnsZero()
         {

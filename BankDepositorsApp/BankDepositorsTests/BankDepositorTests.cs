@@ -10,6 +10,7 @@ namespace BankDepositorsTests
         private const string ValidIban1 = "UA111111111111111111111111111";
         private const string ValidIban2 = "UA222222222222222222222222222";
 
+        // Перевірка конструтора коли дані правильні
         [TestMethod]
         public void Constructor_WithValidArguments_CreatesDepositorObject()
         {
@@ -25,6 +26,7 @@ namespace BankDepositorsTests
             Assert.AreEqual(year, depositor.OpeningYear);
         }
 
+        // Неправильне ім'я
         [TestMethod]
         [DataRow(null)]
         [DataRow("")]
@@ -34,6 +36,7 @@ namespace BankDepositorsTests
             Assert.Throws<ArgumentException>(() => new BankDepositor(invalidName, ValidIban1, 1000m, 2023));
         }
 
+        // Неправильний номер рахунку
         [TestMethod]
         [DataRow(null)]
         [DataRow("")]
@@ -47,6 +50,7 @@ namespace BankDepositorsTests
             Assert.Throws<ArgumentException>(() => new BankDepositor("Іванов І.І.", invalidAcc, 1000m, 2023));
         }
 
+        // Неправильна сума вкладу
         [TestMethod]
         [DataRow(0)]
         [DataRow(-50)]
@@ -55,18 +59,21 @@ namespace BankDepositorsTests
             Assert.Throws<ArgumentException>(() => new BankDepositor("Іванов І.І.", ValidIban1, (decimal)invalidAmount, 2023));
         }
 
+        // Неправильний рік (майбутній)
         [TestMethod]
         public void Constructor_WithFutureYear_ThrowsArgumentException()
         {
             Assert.Throws<ArgumentException>(() => new BankDepositor("Іванов І.І.", ValidIban1, 1000m, DateTime.Now.Year + 1));
         }
 
+        // Неправильний рік
         [TestMethod]
         public void Constructor_WithEarlyYear_ThrowsArgumentException()
         {
             Assert.Throws<ArgumentException>(() => new BankDepositor("Іванов І.І.", ValidIban1, 1000m, 1899));
         }
 
+        // Порівняння (всі дані правильні)
         [TestMethod]
         public void CompareTo_WithOtherDepositor_ReturnsCorrectValue()
         {
@@ -79,6 +86,7 @@ namespace BankDepositorsTests
             Assert.AreEqual(0, d1.CompareTo(d3));
         }
 
+        // Перевірка чи більше за нуль
         [TestMethod]
         public void CompareTo_WithNull_ReturnsPositiveValue()
         {

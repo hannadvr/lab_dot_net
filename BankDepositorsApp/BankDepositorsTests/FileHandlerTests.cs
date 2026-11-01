@@ -13,12 +13,14 @@ namespace BankDepositorsTests
         private const string Iban1 = "UA111111111111111111111111111";
         private const string Iban2 = "UA222222222222222222222222222";
 
+        // Для незалежності тестів
         [TestInitialize]
         public void TestInitialize()
         {
             _testFilePath = Path.Combine(Path.GetTempPath(), Path.GetRandomFileName() + ".json");
         }
 
+        // Очищення
         [TestCleanup]
         public void TestCleanup()
         {
@@ -28,6 +30,7 @@ namespace BankDepositorsTests
             }
         }
 
+        // Збереження
         [TestMethod]
         public async Task SaveAsync_ShouldWriteDataToFile()
         {
@@ -51,6 +54,7 @@ namespace BankDepositorsTests
             Assert.AreEqual(2, loaded.Count);
         }
 
+        // Завантаження
         [TestMethod]
         public async Task LoadAsync_WhenFileDoesNotExist_ReturnsNull()
         {

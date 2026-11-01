@@ -6,6 +6,7 @@ using BankDepositorsApp;
 
 namespace BankDepositorsTests
 {
+    // Тестова заглушка
     public class FakeFileService : IFileSaver, IFileLoader
     {
         public Task SaveAsync<T>(string filePath, List<T> data) => Task.CompletedTask;
@@ -20,6 +21,7 @@ namespace BankDepositorsTests
         private const string Iban2 = "UA222222222222222222222222222";
         private const string Iban3 = "UA333333333333333333333333333";
 
+        // Для незалежності тестів
         [TestInitialize]
         public void Setup()
         {
@@ -27,6 +29,7 @@ namespace BankDepositorsTests
             _manager = new BankManager(fakeService, fakeService, "test.json");
         }
 
+        // Додавання вкладника
         [TestMethod]
         public void AddDepositor_IncreasesListCount()
         {
@@ -37,6 +40,7 @@ namespace BankDepositorsTests
             Assert.AreEqual(dep, _manager.Depositors[0]);
         }
 
+        // Видалення вкладника
         [TestMethod]
         public void DeleteDepositor_RemovesItemFromList()
         {
@@ -47,6 +51,7 @@ namespace BankDepositorsTests
             Assert.AreEqual(0, _manager.Depositors.Count);
         }
 
+        // Сортування за сумою вкладення
         [TestMethod]
         public void SortByAmount_SortsDepositorsAscending()
         {
@@ -61,6 +66,7 @@ namespace BankDepositorsTests
             Assert.AreEqual(12000m, _manager.Depositors[1].Amount);
         }
 
+        // Фільтрація за поточним роком
         [TestMethod]
         public void FilterByCurrentYear_FiltersOnlyCurrentYearDepositors()
         {
@@ -77,6 +83,7 @@ namespace BankDepositorsTests
             Assert.AreEqual("Новий", _manager.Depositors[0].FullName);
         }
 
+        // Фільтр і сортування
         [TestMethod]
         public void FilterByCurrentYear_ThenSortByAmount_MatchesVariant5()
         {
@@ -100,6 +107,7 @@ namespace BankDepositorsTests
             Assert.AreEqual(20000m, _manager.Depositors[1].Amount);
         }
 
+        // Скидання фільтра
         [TestMethod]
         public void ResetFilter_RestoresAllRecords()
         {
@@ -114,6 +122,7 @@ namespace BankDepositorsTests
             Assert.AreEqual(2, _manager.Depositors.Count);
         }
 
+        // Перевірка при однакових номерах рахунків
         [TestMethod]
         public void AddDepositor_DuplicateAccountNumber_ThrowsInvalidOperationException()
         {
