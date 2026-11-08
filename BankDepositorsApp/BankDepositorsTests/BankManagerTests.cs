@@ -133,5 +133,113 @@ namespace BankDepositorsTests
 
             Assert.Throws<InvalidOperationException>(() => _manager.AddDepositor(dep2));
         }
+
+        // Перевірка рядка пошуку коли даних немає
+        [TestMethod]
+        public void SearchDepositors_WithNullOrWhiteSpace_RestoresAllDepositors()
+        {
+            var d1 = new BankDepositor("Іваненко І.І.", Iban1, 1000m, 2024);
+            var d2 = new BankDepositor("Петренко П.П.", Iban2, 2000m, 2023);
+            _manager.AddDepositor(d1);
+            _manager.AddDepositor(d2);
+
+            _manager.SearchDepositors(null);
+            Assert.AreEqual(2, _manager.Depositors.Count);
+
+            _manager.SearchDepositors("   ");
+            Assert.AreEqual(2, _manager.Depositors.Count);
+        }
+
+        // Пошук за введеним фрагментом
+        [TestMethod]
+        public void SearchDepositors_WithFragment_ReturnsMatchingDepositors()
+        {
+            var d1 = new BankDepositor("Тарас Шевченко", Iban1, 1000m, 2024);
+            var d2 = new BankDepositor("Леся Українка", Iban2, 2000m, 2023);
+            _manager.AddDepositor(d1);
+            _manager.AddDepositor(d2);
+
+            _manager.SearchDepositors("шевч");
+            Assert.AreEqual(1, _manager.Depositors.Count);
+            Assert.AreEqual(d1.FullName, _manager.Depositors[0].FullName);
+
+            _manager.SearchDepositors("22222");
+            Assert.AreEqual(1, _manager.Depositors.Count);
+            Assert.AreEqual(d2.AccountNumber, _manager.Depositors[0].AccountNumber);
+        }
+
+        // Унікальні імена
+        [TestMethod]
+        public void ShowUniqueDepositors_ReturnsUniqueNamesAlphabetically()
+        {
+            var d1 = new BankDepositor("Шевченко Т.", Iban1, 1000m, 2024);
+            var d2 = new BankDepositor("Франко І.", Iban2, 2000m, 2023);
+            var d3 = new BankDepositor("Франко І.", Iban3, 3000m, 2022); // дублікат ПІБ
+            _manager.AddDepositor(d1);
+            _manager.AddDepositor(d2);
+            _manager.AddDepositor(d3);
+
+            _manager.ShowUniqueDepositors();
+
+            Assert.AreEqual(2, _manager.Depositors.Count);
+            Assert.AreEqual("Франко І.", _manager.Depositors[0].FullName);
+            Assert.AreEqual("Шевченко Т.", _manager.Depositors[1].FullName);
+        }
+
+        // Топ три вкладники
+        [TestMethod]
+        public void FindTopThreeDeposits_ReturnsThreeHighestDeposits()
+        {
+            _manager.AddDepositor(new BankDepositor("A", Iban1, 1000m, 2021));
+            _manager.AddDepositor(new BankDepositor("B", Iban2, 5000m, 2022));
+            _manager.AddDepositor(new BankDepositor("C", Iban3, 2000m, 2023));
+            _manager.AddDepositor(new BankDepositor("D", "UA444444444444444444444444444", 8000m, 2024));
+
+            _manager.FindTopThreeDeposits();
+
+            Assert.AreEqual(3, _manager.Depositors.Count);
+            Assert.AreEqual(8000m, _manager.Depositors[0].Amount);
+            Assert.AreEqual(5000m, _manager.Depositors[1].Amount);
+            Assert.AreEqual(2000m, _manager.Depositors[2].Amount);
+        }
+
+        // Середня сума вкладу
+        [TestMethod]
+        public void CalculateAverageAmount_ReturnsCorrectAverage()
+        {
+            _manager.AddDepositor(new BankDepositor("A", Iban1, 10000m, 2022));
+            _manager.AddDepositor(new BankDepositor("B", Iban2, 20000m, 2023));
+            _manager.AddDepositor(new BankDepositor("C", Iban3, 30000m, 2024));
+
+            decimal avg = _manager.CalculateAverageAmount();
+
+            Assert.AreEqual(20000m, avg);
+        }
+
+        // Середній вклад коли порожній список
+        [TestMethod]
+        public void CalculateAverageAmount_WhenListIsEmpty_ReturnsZero()
+        {
+            decimal avg = _manager.CalculateAverageAmount();
+            Assert.AreEqual(0m, avg);
+        }
+
+        //  Групування за роком
+        [TestMethod]
+        public void GroupDepositorsByYear_OrdersGroupsFromNewestToOldest()
+        {
+            var d1 = new BankDepositor("A", Iban1, 1000m, 2020);
+            var d2 = new BankDepositor("B", Iban2, 2000m, 2024);
+            var d3 = new BankDepositor("C", Iban3, 3000m, 2022);
+            _manager.AddDepositor(d1);
+            _manager.AddDepositor(d2);
+            _manager.AddDepositor(d3);
+
+            _manager.GroupDepositorsByYear();
+
+            Assert.AreEqual(2024, _manager.Depositors[0].OpeningYear);
+            Assert.AreEqual(2022, _manager.Depositors[1].OpeningYear);
+            Assert.AreEqual(2020, _manager.Depositors[2].OpeningYear);
+        }
     }
 }

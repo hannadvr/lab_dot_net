@@ -8,6 +8,7 @@
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
             <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
         <!-- Блок додавання -->
@@ -53,13 +54,24 @@
         </DataGrid>
 
         <!-- Блок управління -->
-        <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Right" Margin="5">
+        <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Center" Margin="5">
             <Button x:Name="CurrentYearFilterButton" Content="Фільтр за поточним роком" Margin="5" Click="CurrentYearFilterButton_Click"/>
             <Button x:Name="ResetFilterButton" Content="Скинути фільтр" Margin="5" Click="ResetFilterButton_Click"/>
             <Button x:Name="SortButton" Content="Сортувати за сумою" Margin="5" Click="SortButton_Click"/>
             <Button x:Name="DeleteButton" Content="Видалити" Margin="5" Click="DeleteButton_Click"/>
             <Button x:Name="LoadButton" Content="Завантажити" Margin="5" Click="LoadButton_Click"/>
             <Button x:Name="SaveButton" Content="Зберегти" Margin="5" Click="SaveButton_Click"/>
+        </StackPanel>
+
+        <!-- Нова панель LINQ запитів -->
+        <StackPanel Grid.Row="3" Orientation="Horizontal" HorizontalAlignment="Center" Margin="5" Background="#FF119A7A">
+            <TextBlock Text="Пошук:" VerticalAlignment="Center" Margin="5" Foreground="White"/>
+            <TextBox x:Name="SearchTextBox" Width="130" Margin="5" Padding="2" VerticalAlignment="Center"/>
+            <Button x:Name="SearchButton" Content="Пошук" Margin="5" Click="SearchButton_Click" Background="#FFD7FAB2" Padding="5,2"/>
+            <Button x:Name="UniqueDepositorsButton" Content="Унікальні вкладники" Margin="5" Click="UniqueDepositorsButton_Click" Background="#FFD7FAB2" Padding="5,2"/>
+            <Button x:Name="TopThreeButton" Content="Топ-3 вклади" Margin="5" Click="TopThreeButton_Click" Background="#FFD7FAB2" Padding="5,2"/>
+            <Button x:Name="AverageAmountButton" Content="Середній вклад" Margin="5" Click="AverageAmountButton_Click" Background="#FFD7FAB2" Padding="5,2"/>
+            <Button x:Name="GroupByYearButton" Content="Групування за роком" Margin="5" Click="GroupByYearButton_Click" Background="#FFD7FAB2" Padding="5,2"/>
         </StackPanel>
     </Grid>
 </Window>

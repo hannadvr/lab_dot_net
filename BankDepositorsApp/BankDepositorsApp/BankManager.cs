@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace BankDepositorsApp
@@ -14,7 +15,6 @@ namespace BankDepositorsApp
         public ObservableCollection<BankDepositor> Depositors { get; }
         private List<BankDepositor> _allDepositors;
 
-        // Конструктор
         public BankManager(IFileSaver fileSaver, IFileLoader fileLoader, string filePath)
         {
             _fileSaver = fileSaver;
@@ -25,25 +25,20 @@ namespace BankDepositorsApp
             _allDepositors = new List<BankDepositor>();
         }
 
-        // Додавання вкладника
         public void AddDepositor(BankDepositor depositor)
         {
             if (depositor == null)
                 throw new ArgumentNullException(nameof(depositor));
 
-            foreach (var item in _allDepositors)
+            if (_allDepositors.Any(item => string.Equals(item.AccountNumber, depositor.AccountNumber, StringComparison.OrdinalIgnoreCase)))
             {
-                if (string.Equals(item.AccountNumber, depositor.AccountNumber, StringComparison.OrdinalIgnoreCase))
-                {
-                    throw new InvalidOperationException($"Вкладник із номером рахунку '{depositor.AccountNumber}' вже існує в базі.");
-                }
+                throw new InvalidOperationException($"Вкладник із номером рахунку '{depositor.AccountNumber}' вже існує в базі.");
             }
 
             Depositors.Add(depositor);
             _allDepositors.Add(depositor);
         }
 
-        // Видалення вкладника
         public void DeleteDepositor(BankDepositor depositor)
         {
             if (depositor == null) return;
@@ -54,26 +49,90 @@ namespace BankDepositorsApp
         // Сортування за сумою
         public void SortByAmount()
         {
-            var sorted = new List<BankDepositor>(Depositors);
-            sorted.Sort(new DepositorAmountComparer());
+            var sorted = Depositors
+                .OrderBy(d => d.Amount)
+                .ToList();
+
             UpdateVisibleCollection(sorted);
         }
 
-        // Фільтрація за роком
+        // Фільтрація за поточним роком через
         public void FilterByCurrentYear()
         {
             int currentYear = DateTime.Now.Year;
-            var filtered = new List<BankDepositor>();
-
-            foreach (var depositor in _allDepositors)
-            {
-                if (depositor.OpeningYear == currentYear)
-                {
-                    filtered.Add(depositor);
-                }
-            }
+            var filtered = _allDepositors
+                .Where(d => d.OpeningYear == currentYear)
+                .ToList();
 
             UpdateVisibleCollection(filtered);
+        }
+
+        //5 нових методів
+
+        // Пошук за частиною ПІБ або номера рахунку
+        public void SearchDepositors(string searchTerm)
+        {
+            if (string.IsNullOrWhiteSpace(searchTerm))
+            {
+                ResetFilter();
+                return;
+            }
+
+            string lowerTerm = searchTerm.Trim().ToLowerInvariant();
+            var searchResult = _allDepositors
+                .Where(d => d.FullName.ToLowerInvariant().Contains(lowerTerm) ||
+                            d.AccountNumber.ToLowerInvariant().Contains(lowerTerm))
+                .ToList();
+
+            UpdateVisibleCollection(searchResult);
+        }
+
+        // Отримання списку унікальних імен вкладників
+        public void ShowUniqueDepositors()
+        {
+            var uniqueNames = _allDepositors
+                .Select(d => d.FullName)
+                .Distinct()
+                .OrderBy(name => name)
+                .ToList();
+
+            var uniqueDepositors = uniqueNames
+                .Select(name => new BankDepositor(name, "UA000000000000000000000000000", 1m, DateTime.Now.Year))
+                .ToList();
+
+            UpdateVisibleCollection(uniqueDepositors);
+        }
+
+        // Знайти 3 найбільші вклади
+        public void FindTopThreeDeposits()
+        {
+            var topDeposits = _allDepositors
+                .OrderByDescending(d => d.Amount)
+                .Take(3)
+                .ToList();
+
+            UpdateVisibleCollection(topDeposits);
+        }
+
+        // Розрахунок середньої суми вкладу
+        public decimal CalculateAverageAmount()
+        {
+            if (_allDepositors.Count == 0)
+                return 0;
+
+            return _allDepositors.Average(d => d.Amount);
+        }
+
+        // Згрупувати вкладників за роком відкриття (від нових до старих)
+        public void GroupDepositorsByYear()
+        {
+            var grouped = _allDepositors
+                .GroupBy(d => d.OpeningYear)
+                .OrderByDescending(g => g.Key)
+                .SelectMany(g => g)
+                .ToList();
+
+            UpdateVisibleCollection(grouped);
         }
 
         // Скидання фільтру
@@ -82,7 +141,6 @@ namespace BankDepositorsApp
             UpdateVisibleCollection(_allDepositors);
         }
 
-        // Оновлення видимого списку
         private void UpdateVisibleCollection(List<BankDepositor> newList)
         {
             Depositors.Clear();
@@ -92,13 +150,11 @@ namespace BankDepositorsApp
             }
         }
 
-        // Зберігання в файл
         public async Task SaveAsync()
         {
             await _fileSaver.SaveAsync(_filePath, _allDepositors);
         }
 
-        // Завантаження з файлу
         public async Task LoadAsync()
         {
             var loaded = await _fileLoader.LoadAsync<BankDepositor>(_filePath);

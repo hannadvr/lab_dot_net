@@ -101,5 +101,43 @@ namespace BankDepositorsApp
                 MessageBox.Show($"Помилка при завантаженні: {ex.Message}", "Помилка", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
+
+        // Пошук за ПІБ або номером рахунку
+        private void SearchButton_Click(object sender, RoutedEventArgs e)
+        {
+            if (string.IsNullOrWhiteSpace(SearchTextBox.Text))
+            {
+                _manager.ResetFilter();
+            }
+            else
+            {
+                _manager.SearchDepositors(SearchTextBox.Text);
+            }
+        }
+
+        // Список унікальних вкладників
+        private void UniqueDepositorsButton_Click(object sender, RoutedEventArgs e)
+        {
+            _manager.ShowUniqueDepositors();
+        }
+
+        // Топ-3 вклади
+        private void TopThreeButton_Click(object sender, RoutedEventArgs e)
+        {
+            _manager.FindTopThreeDeposits();
+        }
+
+        // Розрахунок середнього вкладу
+        private void AverageAmountButton_Click(object sender, RoutedEventArgs e)
+        {
+            decimal avg = _manager.CalculateAverageAmount();
+            MessageBox.Show($"Середня сума вкладу = {avg:N2} грн", "Розрахунки", MessageBoxButton.OK, MessageBoxImage.Information);
+        }
+
+        // Групування за роком відкриття
+        private void GroupByYearButton_Click(object sender, RoutedEventArgs e)
+        {
+            _manager.GroupDepositorsByYear();
+        }
     }
 }

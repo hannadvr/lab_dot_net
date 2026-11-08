@@ -65,8 +65,6 @@ namespace BankDepositorsApp
             }
         }
 
-        public BankDepositor() { }
-
         // Конструктор
         public BankDepositor(string fullName, string accountNumber, decimal amount, int openingYear)
         {
