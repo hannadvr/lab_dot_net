@@ -135,6 +135,20 @@ namespace BankDepositorsApp
             UpdateVisibleCollection(grouped);
         }
 
+        public void FilterAboveAverageAmount()
+        {
+            if (_allDepositors.Count == 0)
+            {
+                return;
+            }
+            decimal average = _allDepositors.Average(d => d.Amount);
+            var result = _allDepositors
+               .Where(d => d.Amount > average)
+               .ToList();
+
+            UpdateVisibleCollection(result);
+        }
+
         // Скидання фільтру
         public void ResetFilter()
         {

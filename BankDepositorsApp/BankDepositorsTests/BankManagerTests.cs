@@ -226,6 +226,20 @@ namespace BankDepositorsTests
 
         //  Групування за роком
         [TestMethod]
+        public void FilterAboveAverage()
+        {
+            var d1 = new BankDepositor("A", Iban1, 1000m, 2020);
+            var d2 = new BankDepositor("B", Iban2, 2000m, 2024);
+            var d3 = new BankDepositor("C", Iban3, 3000m, 2022);
+            _manager.AddDepositor(d1);
+            _manager.AddDepositor(d2);
+            _manager.AddDepositor(d3);
+
+            _manager.FilterAboveAverageAmount();
+
+            Assert.AreEqual(3000m, _manager.Depositors[0].Amount);
+        }
+
         public void GroupDepositorsByYear_OrdersGroupsFromNewestToOldest()
         {
             var d1 = new BankDepositor("A", Iban1, 1000m, 2020);
