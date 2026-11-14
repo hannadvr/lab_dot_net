@@ -6,6 +6,8 @@ namespace StockExchangeApp
     {
         private double _currentOilPrice = 75.0; // Базова ціна нафти ($/барель)
         private bool _isMarketOpen = true;
+        public double _max = 75.0;
+        public double _min = 75.0;
 
         public double CurrentOilPrice
         {
@@ -36,6 +38,8 @@ namespace StockExchangeApp
 
             double oldPrice = _currentOilPrice;
             CurrentOilPrice = newPrice; // Валідація
+            if (_max < newPrice) _max = newPrice;
+            if (_min  > newPrice) _min = newPrice;
 
             // Сповіщаємо про факт перевірки/оновлення ціни
             PriceChecked?.Invoke(newPrice);
@@ -52,7 +56,7 @@ namespace StockExchangeApp
             if (!_isMarketOpen) return;
 
             _isMarketOpen = false;
-            MarketClosed?.Invoke($"Торгову сесію закрито. Фінальна ціна нафти: {_currentOilPrice:F2}$");
+            MarketClosed?.Invoke($"Торгову сесію закрито. Фінальна ціна нафти: {_currentOilPrice:F2}$, мінімальна ціна: {_min:F2}$,максимальна ціна:{_max:F2}$");
         }
 
         public bool OpenMarket()

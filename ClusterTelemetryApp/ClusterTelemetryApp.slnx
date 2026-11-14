@@ -1,0 +1,4 @@
+<Solution>
+  <Project Path="ClusterTelemetryApp.Tests/ClusterTelemetryApp.Tests.csproj" />
+  <Project Path="ClusterTelemetryApp/ClusterTelemetryApp.csproj" />
+</Solution>

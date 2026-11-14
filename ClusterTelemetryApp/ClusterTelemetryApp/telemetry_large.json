@@ -1,0 +1,247 @@
+﻿[
+  {
+    "datacenterRegion": "eu-central-1",
+    "clusterName": "Core-Banking-Prod",
+    "nodes": [
+      {
+        "nodeIp": "10.10.1.11",
+        "osVersion": "Ubuntu 24.04",
+        "metrics": [
+          {
+            "time": "2026-11-14T01:00:00Z",
+            "cpuLoadPercent": 34.2,
+            "ramUsedMb": 12400.0
+          },
+          {
+            "time": "2026-11-14T02:00:00Z",
+            "cpuLoadPercent": 92.8,
+            "ramUsedMb": 28600.0
+          },
+          {
+            "time": "2026-11-14T03:00:00Z",
+            "cpuLoadPercent": 96.4,
+            "ramUsedMb": 30100.0
+          },
+          {
+            "time": "2026-11-14T04:00:00Z",
+            "cpuLoadPercent": 41.0,
+            "ramUsedMb": 13200.0
+          }
+        ]
+      },
+      {
+        "nodeIp": "10.10.1.12",
+        "osVersion": "Ubuntu 24.04",
+        "metrics": [
+          {
+            "time": "2026-11-14T01:00:00Z",
+            "cpuLoadPercent": 29.5,
+            "ramUsedMb": 11800.0
+          },
+          {
+            "time": "2026-11-14T02:00:00Z",
+            "cpuLoadPercent": 87.3,
+            "ramUsedMb": 24900.0
+          },
+          {
+            "time": "2026-11-14T03:00:00Z",
+            "cpuLoadPercent": 38.1,
+            "ramUsedMb": 12100.0
+          }
+        ]
+      },
+      {
+        "nodeIp": "10.10.1.13",
+        "osVersion": "AlmaLinux 9",
+        "metrics": [
+          {
+            "time": "2026-11-14T01:00:00Z",
+            "cpuLoadPercent": 18.4,
+            "ramUsedMb": 6400.0
+          },
+          {
+            "time": "2026-11-14T02:00:00Z",
+            "cpuLoadPercent": 21.7,
+            "ramUsedMb": 6800.0
+          },
+          {
+            "time": "2026-11-14T03:00:00Z",
+            "cpuLoadPercent": 19.9,
+            "ramUsedMb": 6550.0
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "datacenterRegion": "us-east-1",
+    "clusterName": "AI-Inference-GPU",
+    "nodes": [
+      {
+        "nodeIp": "10.20.8.101",
+        "osVersion": "Ubuntu 22.04",
+        "metrics": [
+          {
+            "time": "2026-11-14T01:00:00Z",
+            "cpuLoadPercent": 78.9,
+            "ramUsedMb": 48200.0
+          },
+          {
+            "time": "2026-11-14T02:00:00Z",
+            "cpuLoadPercent": 98.7,
+            "ramUsedMb": 61400.0
+          },
+          {
+            "time": "2026-11-14T03:00:00Z",
+            "cpuLoadPercent": 95.1,
+            "ramUsedMb": 59800.0
+          },
+          {
+            "time": "2026-11-14T04:00:00Z",
+            "cpuLoadPercent": 86.2,
+            "ramUsedMb": 51200.0
+          }
+        ]
+      },
+      {
+        "nodeIp": "10.20.8.102",
+        "osVersion": "Ubuntu 22.04",
+        "metrics": [
+          {
+            "time": "2026-11-14T01:00:00Z",
+            "cpuLoadPercent": 64.0,
+            "ramUsedMb": 41000.0
+          },
+          {
+            "time": "2026-11-14T02:00:00Z",
+            "cpuLoadPercent": 89.4,
+            "ramUsedMb": 55600.0
+          },
+          {
+            "time": "2026-11-14T03:00:00Z",
+            "cpuLoadPercent": 71.2,
+            "ramUsedMb": 43900.0
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "datacenterRegion": "eu-west-1",
+    "clusterName": "Gateway-Edge-Nodes",
+    "nodes": [
+      {
+        "nodeIp": "172.18.0.21",
+        "osVersion": "Debian 12",
+        "metrics": [
+          {
+            "time": "2026-11-14T01:00:00Z",
+            "cpuLoadPercent": 45.6,
+            "ramUsedMb": 4200.0
+          },
+          {
+            "time": "2026-11-14T02:00:00Z",
+            "cpuLoadPercent": 91.5,
+            "ramUsedMb": 7850.0
+          },
+          {
+            "time": "2026-11-14T03:00:00Z",
+            "cpuLoadPercent": 49.0,
+            "ramUsedMb": 4400.0
+          }
+        ]
+      },
+      {
+        "nodeIp": "172.18.0.22",
+        "osVersion": "Debian 12",
+        "metrics": [
+          {
+            "time": "2026-11-14T01:00:00Z",
+            "cpuLoadPercent": 39.2,
+            "ramUsedMb": 3950.0
+          },
+          {
+            "time": "2026-11-14T02:00:00Z",
+            "cpuLoadPercent": 42.8,
+            "ramUsedMb": 4100.0
+          },
+          {
+            "time": "2026-11-14T03:00:00Z",
+            "cpuLoadPercent": 37.5,
+            "ramUsedMb": 3890.0
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "datacenterRegion": "ap-northeast-1",
+    "clusterName": "Media-CDN-Cache",
+    "nodes": [
+      {
+        "nodeIp": "192.168.50.10",
+        "osVersion": "Rocky Linux 9",
+        "metrics": [
+          {
+            "time": "2026-11-14T01:00:00Z",
+            "cpuLoadPercent": 52.3,
+            "ramUsedMb": 18400.0
+          },
+          {
+            "time": "2026-11-14T02:00:00Z",
+            "cpuLoadPercent": 88.1,
+            "ramUsedMb": 29700.0
+          },
+          {
+            "time": "2026-11-14T03:00:00Z",
+            "cpuLoadPercent": 55.9,
+            "ramUsedMb": 19100.0
+          }
+        ]
+      },
+      {
+        "nodeIp": "192.168.50.11",
+        "osVersion": "Rocky Linux 9",
+        "metrics": [
+          {
+            "time": "2026-11-14T01:00:00Z",
+            "cpuLoadPercent": 24.0,
+            "ramUsedMb": 9200.0
+          },
+          {
+            "time": "2026-11-14T02:00:00Z",
+            "cpuLoadPercent": 27.6,
+            "ramUsedMb": 9600.0
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "datacenterRegion": "eu-north-1",
+    "clusterName": "Backup-Storage-Cold",
+    "nodes": [
+      {
+        "nodeIp": "10.99.0.5",
+        "osVersion": "AlmaLinux 9",
+        "metrics": [
+          {
+            "time": "2026-11-14T01:00:00Z",
+            "cpuLoadPercent": 12.1,
+            "ramUsedMb": 3100.0
+          },
+          {
+            "time": "2026-11-14T02:00:00Z",
+            "cpuLoadPercent": 95.8,
+            "ramUsedMb": 15900.0
+          },
+          {
+            "time": "2026-11-14T03:00:00Z",
+            "cpuLoadPercent": 14.5,
+            "ramUsedMb": 3250.0
+          }
+        ]
+      }
+    ]
+  }
+]

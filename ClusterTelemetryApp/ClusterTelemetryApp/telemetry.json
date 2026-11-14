@@ -1,0 +1,115 @@
+﻿[
+  {
+    "datacenterRegion": "eu-central-1",
+    "clusterName": "Production-Cluster",
+    "nodes": [
+      {
+        "nodeIp": "10.0.1.45",
+        "osVersion": "Ubuntu 24.04",
+        "metrics": [
+          {
+            "time": "2026-09-04T08:00:00Z",
+            "cpuLoadPercent": 88.5,
+            "ramUsedMb": 14200.0
+          },
+          {
+            "time": "2026-09-04T08:15:00Z",
+            "cpuLoadPercent": 94.2,
+            "ramUsedMb": 15800.0
+          },
+          {
+            "time": "2026-09-04T08:30:00Z",
+            "cpuLoadPercent": 62.0,
+            "ramUsedMb": 12100.0
+          }
+        ]
+      },
+      {
+        "nodeIp": "10.0.1.46",
+        "osVersion": "Ubuntu 24.04",
+        "metrics": [
+          {
+            "time": "2026-09-04T08:00:00Z",
+            "cpuLoadPercent": 41.3,
+            "ramUsedMb": 8400.0
+          },
+          {
+            "time": "2026-09-04T08:15:00Z",
+            "cpuLoadPercent": 91.0,
+            "ramUsedMb": 16100.0
+          },
+          {
+            "time": "2026-09-04T08:30:00Z",
+            "cpuLoadPercent": 39.8,
+            "ramUsedMb": 8200.0
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "datacenterRegion": "us-east-1",
+    "clusterName": "Analytics-Cluster",
+    "nodes": [
+      {
+        "nodeIp": "10.20.4.12",
+        "osVersion": "Debian 12",
+        "metrics": [
+          {
+            "time": "2026-09-04T08:00:00Z",
+            "cpuLoadPercent": 76.4,
+            "ramUsedMb": 24500.0
+          },
+          {
+            "time": "2026-09-04T08:15:00Z",
+            "cpuLoadPercent": 97.8,
+            "ramUsedMb": 31200.0
+          },
+          {
+            "time": "2026-09-04T08:30:00Z",
+            "cpuLoadPercent": 81.2,
+            "ramUsedMb": 28900.0
+          }
+        ]
+      },
+      {
+        "nodeIp": "10.20.4.19",
+        "osVersion": "AlmaLinux 9",
+        "metrics": [
+          {
+            "time": "2026-09-04T08:00:00Z",
+            "cpuLoadPercent": 22.1,
+            "ramUsedMb": 4100.0
+          },
+          {
+            "time": "2026-09-04T08:15:00Z",
+            "cpuLoadPercent": 25.4,
+            "ramUsedMb": 4350.0
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "datacenterRegion": "eu-west-2",
+    "clusterName": "Staging-Cluster",
+    "nodes": [
+      {
+        "nodeIp": "172.16.0.10",
+        "osVersion": "Ubuntu 24.04",
+        "metrics": [
+          {
+            "time": "2026-09-04T08:00:00Z",
+            "cpuLoadPercent": 15.0,
+            "ramUsedMb": 2048.0
+          },
+          {
+            "time": "2026-09-04T08:15:00Z",
+            "cpuLoadPercent": 86.7,
+            "ramUsedMb": 14900.0
+          }
+        ]
+      }
+    ]
+  }
+]
